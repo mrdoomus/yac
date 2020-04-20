@@ -14,7 +14,7 @@ const broadcast = (data, ws) => {
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN && client !== ws) {
       client.send(JSON.stringify(data));
-    }
+    }s
   });
 };
 
@@ -24,15 +24,6 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (message) => {
     const data = JSON.parse(message);
-
-    /*
-    if (users.length >= 1) {
-      users.forEach((element) => {
-        if (data.name === element.name) {
-          ws.terminate();
-        }
-      });
-    }*/
 
     switch (data.type) {
       case "ADD_USER": {

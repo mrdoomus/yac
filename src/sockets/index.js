@@ -1,24 +1,17 @@
 import * as types from "../redux/actions/ActionTypes";
 import { addUser, messageReceived, populateUsersList } from "../redux/actions";
 
-//let userList = [];
 
 const setupSocket = (dispatch, username) => {
   let socket
 
   if(process.env.PORT === undefined) {
     socket = new WebSocket("ws://localhost:1488");
-  } else {socket = new WebSocket("ws://localhost:" + process.env.PORT.toString());}
+  } else {
+    socket = new WebSocket("ws://localhost:" + process.env.PORT.toString());
+  }
 
-  /*
-  if (userList.includes(username)) {
-    alert(username + " Has already been taken, please select another.");
-    window.location.reload();
-  } else userList.push(username);
-
-  console.log(userList);
-*/
-  // When we receive a new user from the server
+  // When we receive a new user from client to the server
   socket.onopen = () => {
     socket.send(
       JSON.stringify({
@@ -28,7 +21,7 @@ const setupSocket = (dispatch, username) => {
     );
   };
 
-  // When we receive a message from the server
+  // When we receive an event from the client to the server
   socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     switch (data.type) {

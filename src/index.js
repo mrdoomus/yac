@@ -10,9 +10,12 @@ import setupSocket from "./sockets/index";
 import reducers from "./redux/reducers";
 import handleNewMessage from "./sagas";
 
+// Creating saga middleware to intervene reducers
 const sagaMiddleware = createSagaMiddleware();
+// Applying saga middleware to the store creation
 const store = createStore(reducers, applyMiddleware(sagaMiddleware));
 
+// Getters for index.html
 const root = document.getElementById("root");
 const modalRoot = document.getElementById("modal");
 
@@ -22,10 +25,12 @@ class Modal extends React.Component {
     open: true,
   };
 
+  // Function to handle input change
   handleChange = (event) => {
     this.setState({ username: event.target.value });
   };
 
+  // Function to handle "login" submition
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -34,17 +39,8 @@ class Modal extends React.Component {
       this.state.username = "User" + Math.floor(Math.random() * 100);
     }
 
-    // Prevent same usernames
-    /*
-    if (this.state.usernameList.includes(this.state.username)) {
-      console.log("Iguales");
-      alert(
-        this.state.username + " has already been taken, select another one."
-      );
-    } else {
-      this.state.usernameList.push(this.state.username);
-    }*/
-
+    // Connecting socket on client with server
+    // Sending the selected store and username issued
     const socket = setupSocket(store.dispatch, this.state.username);
     sagaMiddleware.run(handleNewMessage, {
       socket,
