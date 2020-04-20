@@ -14,7 +14,7 @@ const broadcast = (data, ws) => {
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN && client !== ws) {
       client.send(JSON.stringify(data));
-    }s
+    }
   });
 };
 
