@@ -1,0 +1,12 @@
+.message {
+  padding: 10px 0 10px 10px;
+  overflow-wrap: anywhere;
+}
+
+.message .message-author {
+  font-size: 20px;
+}
+
+.message .message-time {
+  font-size: 10px;
+}
