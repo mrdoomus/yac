@@ -4,7 +4,11 @@ import { addUser, messageReceived, populateUsersList } from "../redux/actions";
 //let userList = [];
 
 const setupSocket = (dispatch, username) => {
-  const socket = new WebSocket("ws://localhost:8989");
+  let socket
+
+  if(process.env.PORT === undefined) {
+    socket = new WebSocket("ws://localhost:1488");
+  } else {socket = new WebSocket("ws://localhost:" + process.env.PORT.toString());}
 
   /*
   if (userList.includes(username)) {
