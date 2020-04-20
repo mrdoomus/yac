@@ -8,8 +8,11 @@ Component that defines the look of the messages
 @author: Author of the message
 */
 const CommandMessage = ({ message, author, time }) => {
+  // Using React Hooks
   const [videoId, setVideoId] = useState([]);
+  // We split the message by spaces
   const command = message.split(" ");
+  // We omit the first part '/youtube' and join the rest of the message with '+'
   const query = command.slice(1).join("+");
 
   useEffect(() => {
